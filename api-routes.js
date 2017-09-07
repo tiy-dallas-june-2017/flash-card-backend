@@ -91,6 +91,18 @@ router.post('/api/sets/:setId/card', (req, res) => {
     cb);
 });
 
+router.put('/api/sets/:setId', (req, res) => {
+  Set.findByIdAndUpdate(
+    req.params.setId,
+    {$set: { name: req.body.name, description: req.body.description }},
+    (err) => {
+      if(err) {
+        console.log('err', err);
+      }
+    }
+  );
+});
+
 router.put('/api/sets/:setId/card/:cardId', (req, res) => {
   Set.findByIdAndUpdate(
     req.params.setId,
