@@ -91,6 +91,7 @@ router.post('/api/sets/:setId/card', (req, res) => {
     cb);
 });
 
+
 router.put('/api/sets/:setId', (req, res) => {
   Set.findByIdAndUpdate(
     req.params.setId,
@@ -103,6 +104,7 @@ router.put('/api/sets/:setId', (req, res) => {
   );
 });
 
+//delete single card with 'pull'
 router.put('/api/sets/:setId/card/:cardId', (req, res) => {
   Set.findByIdAndUpdate(
     req.params.setId,
@@ -113,6 +115,7 @@ router.put('/api/sets/:setId/card/:cardId', (req, res) => {
      }
   );
 });
+
 
 router.post('/api/sets/:setId/card/:position/incorrect', (req, res) => {
   var matchingObject = {};
