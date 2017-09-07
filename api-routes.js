@@ -96,8 +96,9 @@ router.put('/api/sets/:setId/card/:cardId', (req, res) => {
     req.params.setId,
     {$pull : {"cards": { id : req.params.cardId}}},
     (err) => {
-      if(err) {console.log('err', err)}
-    }
+       if(err) {
+         console.log('err', err)}
+     }
   );
 });
 
