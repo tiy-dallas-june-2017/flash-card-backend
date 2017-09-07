@@ -95,8 +95,10 @@ router.put('/api/sets/:setId/card/:cardId', (req, res) => {
   Set.findByIdAndUpdate(
     req.params.setId,
     {$pull : {"cards": { id : req.params.cardId}}},
-    (err) => { if(err) {console.log('err', err)}};
-  )
+    (err) => {
+      if(err) {console.log('err', err)}
+    }
+  );
 });
 
 router.post('/api/sets/:setId/card/:position/incorrect', (req, res) => {
