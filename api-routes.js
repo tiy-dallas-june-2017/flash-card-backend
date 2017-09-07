@@ -96,9 +96,11 @@ router.put('/api/sets/:setId', (req, res) => {
   Set.findByIdAndUpdate(
     req.params.setId,
     {$set: { name: req.body.name, description: req.body.description }},
-    (err) => {
+    (err, set) => {
       if(err) {
         console.log('err', err);
+      } else {
+        res.json(set);
       }
     }
   );
