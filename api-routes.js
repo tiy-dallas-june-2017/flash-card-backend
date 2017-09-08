@@ -59,7 +59,7 @@ router.delete('/api/sets/:setId', (req, res) => {
     res.sendStatus(204);
   };
 
-  Set.findByIdAndRemove(req.params.setId, cb);
+  Set.findByIdAndRemove(req.params.setId).exec(cb);
 });
 
 router.post('/api/sets/:setId/card', (req, res) => {
@@ -78,34 +78,40 @@ router.post('/api/sets/:setId/card', (req, res) => {
   Set.findByIdAndUpdate(
     req.params.setId,
     {$push: {"cards": card }},
-    {safe: true, upsert: true},
-    cb);
+    {safe: true, upsert: true}).exec(cb);
 });
 
 router.put('/api/sets/:setId', (req, res) => {
+
+  const cb = (err, set) => {
+        if(err) {
+          console.log('err', err);
+        } else {
+          res.json(set);
+        }
+      }
+
+
   Set.findByIdAndUpdate(
     req.params.setId,
-    {$set: { name: req.body.name, description: req.body.description }},
-    (err, set) => {
-      if(err) {
-        console.log('err', err);
-      } else {
-        res.json(set);
-      }
-    }
-  );
+    {$set: { name: req.body.name, description: req.body.description }}).exec(cb);
 });
 
 //delete single card with 'pull'
 router.put('/api/sets/:setId/card/:cardId', (req, res) => {
+
+  const cb = (err, results) => {
+    if (err) {
+      console.log('err', err);
+    } else {
+      res.json(results);
+    }
+  };
+
+
   Set.findByIdAndUpdate(
     req.params.setId,
-    {$pull : {"cards": { id : req.params.cardId}}},
-    (err) => {
-       if(err) {
-         console.log('err', err)}
-     }
-  );
+    {$pull : {"cards": { id : req.params.cardId}}}).exec(cb);
 });
 
 router.post('/api/sets/:setId/card/:position/incorrect', (req, res) => {
