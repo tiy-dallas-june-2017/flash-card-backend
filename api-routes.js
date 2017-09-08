@@ -6,20 +6,12 @@ const router = express.Router();
 
 const userId = 42; //This app to a single-user one for now :)
 
-
-
-
-
 router.get('/api/raw/sets', function(req, res) {
   Set.find({})
     .exec(function(err, sets) {
       res.send(sets);
     });
 });
-
-
-
-
 
 router.get('/api/sets', (req, res) => {
 
@@ -48,7 +40,6 @@ router.get('/api/sets', (req, res) => {
 });
 
 router.post('/api/sets', (req, res) => {
-
 
   var cb = (data) => {
     res.json(data);
@@ -91,7 +82,6 @@ router.post('/api/sets/:setId/card', (req, res) => {
     cb);
 });
 
-
 router.put('/api/sets/:setId', (req, res) => {
   Set.findByIdAndUpdate(
     req.params.setId,
@@ -117,7 +107,6 @@ router.put('/api/sets/:setId/card/:cardId', (req, res) => {
      }
   );
 });
-
 
 router.post('/api/sets/:setId/card/:position/incorrect', (req, res) => {
   var matchingObject = {};
@@ -145,6 +134,5 @@ function incrementSubCount(matchingObject, setId, res) {
     cb
   );
 }
-
 
 module.exports = router;
