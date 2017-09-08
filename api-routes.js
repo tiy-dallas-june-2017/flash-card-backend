@@ -116,7 +116,7 @@ router.put('/api/sets/:setId/card/:cardId', (req, res) => {
 
 router.post('/api/sets/:setId/card/:position/incorrect', (req, res) => {
   var matchingObject = {};
-  matchingObject['cards.' + req.params.position + '.incorrectCount']  = 1;
+  matchingObject['cards.' + req.params.position + '.incorrectCount'] = 1;
 
   incrementSubCount(matchingObject, req.params.setId, res);
 });
@@ -136,9 +136,7 @@ function incrementSubCount(matchingObject, setId, res) {
   Set.update(
     { _id: setId },
     { $inc: matchingObject },
-    {}, //options
-    cb
-  );
+    {}).exec(cb);
 }
 
 module.exports = router;
